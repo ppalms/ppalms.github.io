@@ -24,12 +24,15 @@ url: "https://ppalmer.io" # the base hostname & protocol for your site, e.g. htt
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-cayman
-permalink: /:year-:month-:day/:title
-paginate: 5
+remote_theme: chesterhow/tale
+
+permalink:    /:year-:month-:day/:title
+paginate:     5
 
 plugins:
   - jekyll-feed
+  - jekyll-paginate
+  - jekyll-remote-theme
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
