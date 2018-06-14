@@ -24,7 +24,7 @@ url: "https://ppalmer.io" # the base hostname & protocol for your site, e.g. htt
 
 # Build settings
 markdown: kramdown
-theme: tale
+theme: jekyll-theme-cayman
 permalink: /:year-:month-:day/:title
 paginate: 5
 
