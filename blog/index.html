@@ -1,0 +1,32 @@
+---
+title: Posts
+layout: page
+---
+{% for post in paginator.posts %}
+<div class="text-sm text-grey-darker mt-4">
+    {{ post.date | date: '%B %d, %Y' }}
+</div>
+<h1 class="text-lg sm:text-2xl">
+    <a href="{{ post.url }}" class="text-black no-underline hover:text-indigo">{{ post.title }}</a>
+</h1>
+{% endfor %}
+
+<div class="flex items-center justify-between mt-8 text-sm text-center sm:text-base">
+    <div class="flex-none w-16 sm:w-12">
+        {% if paginator.previous_page %}
+        <a href="{{ paginator.previous_page_path }}"
+            class="hover:bg-indigo text-indigo-dark font-semibold hover:text-white py-1 px-4 border-4 border-indigo no-underline">Prev</a>
+        {% else %}
+        <span>Prev</span>
+        {% endif %}
+    </div>
+    <div class="flex-grow text-center">{{ paginator.page }} / {{ paginator.total_pages }}</div>
+    <div class="flex-none w-16 sm:w-12">
+        {% if paginator.next_page %}
+        <a href="{{ paginator.next_page_path }}"
+            class="hover:bg-indigo text-indigo-dark font-semibold hover:text-white py-1 px-4 border-4 border-indigo no-underline">Next</a>
+        {% else %}
+        <span>Next</span>
+        {% endif %}
+    </div>
+</div>
