@@ -3,6 +3,7 @@ layout: post
 title: "Walking Skeleton"
 date: 2019-02-26
 categories: programming bible-blast
+summary: A high-level overview of the project structure for the 'Bible Blast' app, the technologies I'll be using, and the build pipeline
 ---
 My initial goal for this project will be to build a [walking skeleton](http://wiki.c2.com/?WalkingSkeleton), or an extremely limited version of the app that allows for basic end-to-end testing. The main reason I want to start here is that I want to get something deployed as soon as possible and devops is one of the areas in which I have the least experience.
 
@@ -102,6 +103,8 @@ workflows:
           requires:
             - build-test
 ```
+
+This is probably a pretty rough and rudimentary implementation of CircleCI, but it's a good enough starting point.
 
 ### CircleCI Visualization
 CircleCI is set up to kick off this workflow any time it sees code get pushed to the `master` branch of the GitHub repo. The running jobs can be observed in real time:

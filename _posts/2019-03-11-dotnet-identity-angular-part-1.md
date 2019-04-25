@@ -3,6 +3,7 @@ layout: post
 title: "ASP.NET Core Identity and Angular 2+ (Part 1)"
 date: 2019-03-11
 categories: programming bible-blast
+summary: The first in a series of posts covering my implementation of the ASP.NET Identity system, and how to integrate it with Angular on the frontend. This post looks at the server components and data schema.
 ---
 ## User Management
 One of the basic requirements of the Bible Blast app is the ability for different users to log in to perform certain actions based on their role. There are some third party libraries like [Auth0](https://auth0.com) that do a good job at this, but I wanted to take the opportunity to learn about the [Identity framework](https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-2.2&tabs=visual-studio) offered in .NET.

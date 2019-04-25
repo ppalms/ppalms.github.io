@@ -8,6 +8,7 @@ layout: page
 <h1 class="text-lg sm:text-2xl">
     <a href="{{ post.url }}" class="text-black no-underline hover:text-indigo">{{ post.title }}</a>
 </h1>
+<div class="text-xs text-grey-darker mt-2">{{ post.summary }}</div>
 {% endfor %}
 
 <div class="flex items-center justify-between mt-8 text-sm text-center sm:text-base">
