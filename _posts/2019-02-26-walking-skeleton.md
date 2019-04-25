@@ -2,7 +2,7 @@
 layout: post
 title: "Walking Skeleton"
 date: 2019-02-26
-categories: programming
+categories: programming bible-blast
 ---
 My initial goal for this project will be to build a [walking skeleton](http://wiki.c2.com/?WalkingSkeleton), or an extremely limited version of the app that allows for basic end-to-end testing. The main reason I want to start here is that I want to get something deployed as soon as possible and devops is one of the areas in which I have the least experience.
 
