@@ -2,4 +2,8 @@
 layout: page
 title: Hello
 ---
-My name is Patrick and I'm a full-stack developer living in Tulsa, Oklahoma. I've been building enterprise software for the past 9 years mostly using Microsoft technologies. In my spare time, I enjoy playing around with web development.
+My name is Patrick and I'm a full-stack developer living in Tulsa, Oklahoma. I've been building enterprise software for about 9 years using Microsoft technologies.
+
+At work, I've mostly used C# with ASP.NET, WinForms, and MS SQL Server. On my side projects, I've enjoyed experimenting with .NET Core and frontend libraries like Angular and React.
+
+In my spare time, I enjoy failing at gardening and working on and racing my car.
