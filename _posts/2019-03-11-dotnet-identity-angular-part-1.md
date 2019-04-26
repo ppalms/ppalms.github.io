@@ -99,6 +99,66 @@ I opted to use integers as the data type for the identity columns out of persona
 
 At this point, Entity Framework will create all of the necessary tables when the application is run, including additional columns for my extra properties in the extended `User` class.
 
+### AuthController.cs
+I created a controller to handle user registration and login called `AuthController`. The Identity framework comes with a `UserManager<TUser>` class that makes persisting user info pretty straightforward. Similarly, there is a `SignInManager<TUser>` that does most of the heavy lifting of logging a user in.
+
+#### Register
+To register a new user, I created a small object that I expect to have in the request body from the client. It contains the fields that you would generally see on a user registration form like first/last name, username, password, etc. This object is mapped onto the `User` class that I created and persisted to the database using the `UserManager` class.
+
+Once that has been successful, I use a Web API utility method to build a '201 Created' response that tells the client where the new resource can be found, and I add a `UserDetail` object containing the new user's info to the body of the response. `UserDetail` is basically a pared down DTO version of the `User` object. It's important not to send the full `User` object back to the client since it contains the password hash and other information you wouldn't want to share.
+
+```csharp
+[HttpPost("register")]
+public async Task<IActionResult> Register(UserRegisterRequest request)
+{
+    var user = _mapper.Map<User>(request);
+
+    var userResult = await _userManager.CreateAsync(user, request.Password);
+    if (!userResult.Succeeded)
+    {
+        return BadRequest(userResult.Errors);
+    }
+
+    var newUser = await _userRepo.GetUser(user.Id);
+    var newUserDetail = _mapper.Map<UserDetail>(newUser);
+
+    return CreatedAtRoute("GetUser", new { controller = "Users", id = newUser.Id }, newUserDetail);
+}
+```
+
+There are a couple things going on here that I haven't covered yet - particularly the calls to `_mapper.Map()`. I'm using a library called [Automapper](https://automapper.org/) to map objects onto each other rather than manually building them out myself. I plan to go over this in a subsequent post.
+
+#### Login
+The login process offloads most of the work to the `SignInManager` class. Similar to the registration code, my endpoint expects an object in the request body containing the username and password. I use the `CheckPasswordSignInAsync()` method on the `SignInManager` class to verify the password the client sends over, and if it's successful, I generate a JWT token and send it back in the body of the '200 OK' response. If I can't find a user for the given username or they get the password wrong, the client receives a '401 Unauthorized' response.
+
+```csharp
+[HttpPost("login")]
+public async Task<IActionResult> Login(UserLoginRequest request)
+{
+    var user = await _userManager.Users.IgnoreQueryFilters()
+        .FirstOrDefaultAsync(x => x.UserName == request.Username);
+
+    if (user == null)
+    {
+        return Unauthorized();
+    }
+
+    var result = await _signInManager.CheckPasswordSignInAsync(user, request.Password, false);
+    if (result.Succeeded)
+    {
+        var userInfo = _mapper.Map<UserDetail>(user);
+
+        return Ok(new { token = GenerateJwtToken(user).Result, user = userInfo });
+    }
+
+    return Unauthorized();
+}
+```
+
+So, a successful POST request to the `/auth/login` endpoint will result in the client receiving a response whose body contains the token the client will need to include when making requests to secure endpoints.
+
+You can see the full AuthController class [here](https://github.com/ppalms/bible-blast/blob/master/BibleBlast.API/Controllers/AuthController.cs).
+
 ### Web API Controllers and Authorization
 With the identity system configured, the app can be secured based on whether a user is logged in as well as which role(s) they have. To lock down a controller entirely if a user is not logged in, all that's required is adding the `Authorize` attribute:
 ```csharp
@@ -114,7 +174,7 @@ namespace BibleBlast.API.Controllers
 }
 ```
 
-This attribute also accepts a `Roles` argument for more fine-grained control, e.g. `[Authorize(Roles = "Coach,Admin")]`. An endpoint decorated this way would return a 401 Unauthorized response for users without the Coach or Admin role.
+This attribute also accepts a `Roles` argument for more fine-grained control, e.g. `[Authorize(Roles = "Coach,Admin")]`. An endpoint decorated this way would return a '401 Unauthorized' response for users without the Coach or Admin role.
 
 ### Global query filters
 Entity Framework has the concept of a global query filter which I used to filter data based on a user's organization. This way a user will not see data from other church groups that also use the application. Global query filters are set up in the `OnModelCreating()` method in the EF data context. The following example shows how you could exclude inactive Kid records:
