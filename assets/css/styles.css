@@ -36,42 +36,54 @@
   * @import "components/forms";
   */
 
-  @import url(vs.css);
+@import url(vs.css);
 
-  @responsive {
-    .bg-gradient-blue-to-purple {
-      background-image: linear-gradient(to bottom, config('colors.indigo-light'), 5%, config('colors.indigo-dark'));
-    }
+@responsive {
+  .bg-gradient-blue-to-purple {
+    background-image: linear-gradient(to bottom, config('colors.indigo-light'), 5%, config('colors.indigo-dark'));
   }
-  
-  html {
-    font-family: config('fonts.body');
-  }
+}
 
-  h1, h2 {
-    font-family: config('fonts.display');
-    color: config('textColors.black');
-  }
+html {
+  font-family: config('fonts.body');
+}
 
-  p {
-    margin: 1rem 0;
-    color: config('textColors.grey-darkest');
-  }
+h1, h2 {
+  font-family: config('fonts.display');
+  color: config('textColors.black');
+}
 
-  .catalogue-item:hover .catalogue-line, .catalogue-item:focus .catalogue-line {
-    width: 4rem;
-  }
- 
-  .catalogue-line {
-    -webkit-transition: all 0.3s ease-out;
-    -moz-transition: all 0.3s ease-out;
-    transition: all 0.3s ease-out;
-    border-top: 0.2rem solid config('borderColors.indigo-dark');
-    display: block;
-    width: 0;
-    margin-top: 0.5rem;
-    position: absolute;
-  }
+p {
+  margin: 1rem 0;
+  color: config('textColors.grey-darkest');
+}
+
+.catalogue-item:hover .catalogue-line, .catalogue-item:focus .catalogue-line {
+  width: 4rem;
+}
+
+.catalogue-line {
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  border-top: 0.2rem solid config('borderColors.indigo-dark');
+  display: block;
+  width: 0;
+  margin-top: 0.5rem;
+  position: absolute;
+}
+
+.highlight pre code * {
+  white-space: nowrap;
+}
+
+.highlight pre {
+  overflow-x: auto;
+}
+
+.highlight pre code {
+  white-space: pre;
+}
  /**
   * This injects all of Tailwind's utility classes, generated based on your
   * config file.
