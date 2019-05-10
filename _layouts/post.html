@@ -8,6 +8,11 @@ layout: default
         <div class="border-solid border-black w-16 border-t-0 sm:border-t-4 md:border-t-8 sm:mb-2 sm:mt-1"></div>
     </div>
     <div class="text-sm sm:text-left sm:text-base">
+        {% if page.updated %}
+        <div class="text-xs text-center text-grey-darker">
+            <i>Updated: {{ page.updated | date: '%B %d, %Y' }}</i>
+        </div>
+        {% endif %}
         {{ content }}
     </div>
 </section>
