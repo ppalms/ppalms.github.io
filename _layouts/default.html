@@ -14,7 +14,11 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% if page.title %}
     <title>Patrick Palmer - {{ page.title }}</title>
+    {% else %}
+    <title>Patrick Palmer</title>
+    {% endif %}
     <link rel="stylesheet" href="/assets/css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans|Source+Sans+Pro:700" rel="stylesheet">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">

@@ -30,7 +30,7 @@ plugins:
 
 permalink: /:year-:month-:day/:title
 paginate: 5
-paginate_path: "/blog/:num/"
+paginate_path: "/:num/"
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
